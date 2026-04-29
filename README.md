@@ -12,10 +12,10 @@ A dark, futuristic system monitor widget for **KDE Plasma 6**. Displays real-tim
 
 <p align="center">
   <img src="screenshots/cpu_ram.png" width="340" alt="CPU and RAM sections"/>
-  <img src="screenshots/gpu_disk_network.png" width="340" alt="GPU, Disk and Network sections"/>
+  <img src="screenshots/gpu_disk.png" width="340" alt="GPU and Disk sections"/>
 </p>
 <p align="center">
-  <img src="screenshots/battery_processes.png" width="340" alt="Battery and Processes sections"/>
+  <img src="screenshots/network_battery_process.png" width="340" alt="Network, Battery and Processes sections"/>
 </p>
 
 ---
