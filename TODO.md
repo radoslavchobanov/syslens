@@ -1,0 +1,15 @@
+- configuration menu, to configure - update rates, usage average periods, sections shown, etc
+- "Memory" section:
+   - lets call it "RAM"
+   - Have a stacked barchart sideways, so that we can show the used, cached, total RAM (maybe not).
+   - Think of any other better chart there. Also we need axises and legend on the current chart (maybe its not the best one).
+   - [RAM usage average] to have consistency across charts, instead of having this linechart, lets have "CPU usage average" type of chart, with given periods for RAM usages (1d, 1M, ALL). Periods should also be configurable from the configuration menu, when implemented
+   - think about having the same "CPU usage average" with periods charts about the SWAP as well, as secondary chart maybe.
+- CPU section:
+   - find better way to show the CPU Power, currently it looks kinda off being in this big rectangle. Also the text is small
+   - CPU usage average chart, i want to apply the same color order -> white, blue, red. Same as the CPU temparature color order
+- GPU section:
+   - [GPU usage average] have the same "CPU usage average" type of chart for the GPU as well with given periods, etc.
+   - think about having the same "CPU usage average" with periods charts about the VRAM as well, as secondary chart maybe.
+- Network section:
+   - [Network usage average] think about having the same "CPU usage average" type chart with periods for the download and upload traffic

@@ -1,0 +1,25 @@
+{
+  "KPackageStructure": "Plasma/Applet",
+  "KPlugin": {
+    "Authors": [
+      {
+        "Email": "rado.chobanov97@gmail.com",
+        "Name": "SysLens"
+      }
+    ],
+    "Category": "System Information",
+    "Description": "Dark futuristic system monitor widget for KDE Plasma.",
+    "EnabledByDefault": true,
+    "Icon": "utilities-system-monitor",
+    "Id": "com.syslens.monitor",
+    "License": "MIT",
+    "Name": "SysLens",
+    "Version": "0.1.0",
+    "Website": "https://example.local"
+  },
+  "X-Plasma-API": "declarativeappletscript",
+  "X-Plasma-API-Minimum-Version": "6.0",
+  "X-Plasma-NotificationArea": "true",
+  "X-Plasma-NotificationAreaCategory": "SystemServices",
+  "X-Plasma-MainScript": "ui/main.qml"
+}

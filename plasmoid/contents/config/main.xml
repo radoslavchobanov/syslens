@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kcfg xmlns="http://www.kde.org/standards/kcfg/1.0"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.kde.org/standards/kcfg/1.0
+      http://www.kde.org/standards/kcfg/1.0/kcfg.xsd">
+  <kcfgfile name=""/>
+  <group name="General">
+    <entry name="updateIntervalMs" type="Int">
+      <default>2500</default>
+    </entry>
+    <entry name="processLimit" type="Int">
+      <default>6</default>
+    </entry>
+  </group>
+  <group name="Sections">
+    <entry name="showCpu" type="Bool"><default>true</default></entry>
+    <entry name="showRam" type="Bool"><default>true</default></entry>
+    <entry name="showGpu" type="Bool"><default>true</default></entry>
+    <entry name="showDisk" type="Bool"><default>true</default></entry>
+    <entry name="showNetwork" type="Bool"><default>true</default></entry>
+    <entry name="showProcesses" type="Bool"><default>true</default></entry>
+    <entry name="showBattery" type="Bool"><default>true</default></entry>
+  </group>
+  <group name="Averages">
+    <entry name="ramPeriod1Days"   type="Int"><default>1</default></entry>
+    <entry name="ramPeriod2Days"   type="Int"><default>30</default></entry>
+    <entry name="swapPeriod1Days"  type="Int"><default>1</default></entry>
+    <entry name="swapPeriod2Days"  type="Int"><default>30</default></entry>
+    <entry name="gpuPeriod1Days"   type="Int"><default>1</default></entry>
+    <entry name="gpuPeriod2Days"   type="Int"><default>30</default></entry>
+    <entry name="vramPeriod1Days"  type="Int"><default>1</default></entry>
+    <entry name="vramPeriod2Days"  type="Int"><default>30</default></entry>
+    <entry name="netDlPeriod1Days" type="Int"><default>1</default></entry>
+    <entry name="netDlPeriod2Days" type="Int"><default>30</default></entry>
+    <entry name="netUlPeriod1Days" type="Int"><default>1</default></entry>
+    <entry name="netUlPeriod2Days" type="Int"><default>30</default></entry>
+  </group>
+</kcfg>

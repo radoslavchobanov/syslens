@@ -1,0 +1,3 @@
+plasmoid/contents/code/__pycache__/
+*.pyc
+*.pyo
