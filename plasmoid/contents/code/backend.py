@@ -453,7 +453,6 @@ def update_metric_averages(
     state: dict[str, Any],
     key: str,
     value: float,
-    boot_id: str | None,
     period1_days: int,
     period2_days: int,
 ) -> dict[str, Any]:
@@ -463,9 +462,6 @@ def update_metric_averages(
     max_age = max(period1_secs, period2_secs) + 2 * METRIC_BUCKET_SECONDS
 
     history = state.setdefault(f"metric_{key}", {})
-    if history.get("boot_id") != boot_id:
-        history.clear()
-        history["boot_id"] = boot_id
 
     samples: list[dict[str, Any]] = [
         s for s in history.setdefault("samples", [])
@@ -867,6 +863,19 @@ def update_network_totals(state: dict[str, Any], network: dict[str, Any], counte
         for key in sorted(period_map.keys())[:-keep]:
             period_map.pop(key, None)
 
+    for period in ("daily", "weekly", "monthly"):
+        period_map = periods.get(period, {})
+        current_key = keys[period]
+        historical = {k: v for k, v in period_map.items() if k != current_key}
+        if historical:
+            avg_rx = round(sum(int(v.get("rx_bytes", 0)) for v in historical.values()) / len(historical))
+            avg_tx = round(sum(int(v.get("tx_bytes", 0)) for v in historical.values()) / len(historical))
+        else:
+            avg_rx = avg_tx = None
+        if period in totals:
+            totals[period]["rx_avg_bytes"] = avg_rx
+            totals[period]["tx_avg_bytes"] = avg_tx
+
     network["totals"] = totals
     network["traffic_interfaces"] = traffic_interfaces
     network["local_ipv4"] = local_ipv4()
@@ -1111,21 +1120,21 @@ def collect_snapshot(  # noqa: PLR0913
     update_network_totals(state, network, net_after, boot_id)
 
     memory["usage_average_percent"] = update_metric_averages(
-        state, "ram_usage", memory["usage_percent"], boot_id, ram_p1, ram_p2)
+        state, "ram_usage", memory["usage_percent"], ram_p1, ram_p2)
     memory["swap"]["usage_average_percent"] = update_metric_averages(
-        state, "swap_usage", memory["swap"]["usage_percent"], boot_id, swap_p1, swap_p2)
+        state, "swap_usage", memory["swap"]["usage_percent"], swap_p1, swap_p2)
 
     gpu_devices = gpu.get("devices", [])
     if gpu_devices:
         gpu["usage_average_percent"] = update_metric_averages(
-            state, "gpu_usage", float(gpu_devices[0].get("usage_percent") or 0), boot_id, gpu_p1, gpu_p2)
+            state, "gpu_usage", float(gpu_devices[0].get("usage_percent") or 0), gpu_p1, gpu_p2)
         gpu["vram_average_percent"] = update_metric_averages(
-            state, "vram_usage", float(gpu_devices[0].get("vram_usage_percent") or 0), boot_id, vram_p1, vram_p2)
+            state, "vram_usage", float(gpu_devices[0].get("vram_usage_percent") or 0), vram_p1, vram_p2)
 
     network["download_average"] = update_metric_averages(
-        state, "net_download", network.get("download_bytes_per_sec", 0), boot_id, net_dl_p1, net_dl_p2)
+        state, "net_download", network.get("download_bytes_per_sec", 0), net_dl_p1, net_dl_p2)
     network["upload_average"] = update_metric_averages(
-        state, "net_upload", network.get("upload_bytes_per_sec", 0), boot_id, net_ul_p1, net_ul_p2)
+        state, "net_upload", network.get("upload_bytes_per_sec", 0), net_ul_p1, net_ul_p2)
 
     save_state(state)
 

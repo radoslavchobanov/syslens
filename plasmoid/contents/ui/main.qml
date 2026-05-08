@@ -663,7 +663,7 @@ PlasmoidItem {
 
                     SensorCard {
                         Layout.fillWidth: true
-                        Layout.preferredHeight: Kirigami.Units.gridUnit * 31
+                        Layout.preferredHeight: Kirigami.Units.gridUnit * 32
                         title: "Network"
                         accent: root.teal
                         visible: Plasmoid.configuration.showNetwork
@@ -743,18 +743,42 @@ PlasmoidItem {
                                     period: "DAY"
                                     rxBytes: root.bytes(root.section(["network", "totals", "daily", "rx_bytes"], 0), false)
                                     txBytes: root.bytes(root.section(["network", "totals", "daily", "tx_bytes"], 0), false)
+                                    rxAvgBytes: {
+                                        var v = root.section(["network", "totals", "daily", "rx_avg_bytes"], null)
+                                        return v !== null ? root.bytes(v, false) : ""
+                                    }
+                                    txAvgBytes: {
+                                        var v = root.section(["network", "totals", "daily", "tx_avg_bytes"], null)
+                                        return v !== null ? root.bytes(v, false) : ""
+                                    }
                                 }
                                 NetworkPeriodTile {
                                     Layout.fillWidth: true
                                     period: "WEEK"
                                     rxBytes: root.bytes(root.section(["network", "totals", "weekly", "rx_bytes"], 0), false)
                                     txBytes: root.bytes(root.section(["network", "totals", "weekly", "tx_bytes"], 0), false)
+                                    rxAvgBytes: {
+                                        var v = root.section(["network", "totals", "weekly", "rx_avg_bytes"], null)
+                                        return v !== null ? root.bytes(v, false) : ""
+                                    }
+                                    txAvgBytes: {
+                                        var v = root.section(["network", "totals", "weekly", "tx_avg_bytes"], null)
+                                        return v !== null ? root.bytes(v, false) : ""
+                                    }
                                 }
                                 NetworkPeriodTile {
                                     Layout.fillWidth: true
                                     period: "MONTH"
                                     rxBytes: root.bytes(root.section(["network", "totals", "monthly", "rx_bytes"], 0), false)
                                     txBytes: root.bytes(root.section(["network", "totals", "monthly", "tx_bytes"], 0), false)
+                                    rxAvgBytes: {
+                                        var v = root.section(["network", "totals", "monthly", "rx_avg_bytes"], null)
+                                        return v !== null ? root.bytes(v, false) : ""
+                                    }
+                                    txAvgBytes: {
+                                        var v = root.section(["network", "totals", "monthly", "tx_avg_bytes"], null)
+                                        return v !== null ? root.bytes(v, false) : ""
+                                    }
                                 }
                             }
 
@@ -1361,17 +1385,19 @@ PlasmoidItem {
         property string period: ""
         property string rxBytes: "—"
         property string txBytes: "—"
+        property string rxAvgBytes: ""
+        property string txAvgBytes: ""
 
         color: "#0b1013"
         border.color: Qt.rgba(root.teal.r, root.teal.g, root.teal.b, 0.32)
         border.width: 1
         radius: 5
-        implicitHeight: Kirigami.Units.gridUnit * 4.4
+        implicitHeight: Kirigami.Units.gridUnit * 5.0
 
         ColumnLayout {
             anchors.fill: parent
             anchors.margins: 7
-            spacing: 3
+            spacing: 2
 
             PlasmaComponents3.Label {
                 Layout.fillWidth: true
@@ -1393,10 +1419,15 @@ PlasmoidItem {
                     font.bold: true
                 }
                 PlasmaComponents3.Label {
-                    Layout.fillWidth: true
                     text: rxBytes
                     color: root.textPrimary
                     font.pixelSize: 10
+                }
+                PlasmaComponents3.Label {
+                    Layout.fillWidth: true
+                    text: rxAvgBytes !== "" ? "(avg " + rxAvgBytes + ")" : ""
+                    color: root.textSecondary
+                    font.pixelSize: 9
                     elide: Text.ElideRight
                 }
             }
@@ -1411,10 +1442,15 @@ PlasmoidItem {
                     font.bold: true
                 }
                 PlasmaComponents3.Label {
-                    Layout.fillWidth: true
                     text: txBytes
                     color: root.textPrimary
                     font.pixelSize: 10
+                }
+                PlasmaComponents3.Label {
+                    Layout.fillWidth: true
+                    text: txAvgBytes !== "" ? "(avg " + txAvgBytes + ")" : ""
+                    color: root.textSecondary
+                    font.pixelSize: 9
                     elide: Text.ElideRight
                 }
             }
